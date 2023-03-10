@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompositionPlaylist xmlns="http://www.smpte-ra.org/schemas/429-7/2006/CPL">
+  <Id>urn:uuid:2acb512a-d3c4-4dc9-9a3c-946dcbaa39bf</Id>
+  <AnnotationText>HDR Demo</AnnotationText>
+  <IssueDate>2022-09-22T14:09:18</IssueDate>
+  <Issuer>Blackmagic Design</Issuer>
+  <Creator>Blackmagic Design DaVinci Resolve Studio 18.0.3.0005</Creator>
+  <ContentTitleText>HDR Demo</ContentTitleText>
+  <ContentKind>advertisement</ContentKind>
+  <ContentVersion>
+    <Id>urn:uuid:1f8a35d8-fb46-4965-b609-84265f8d6405</Id>
+    <LabelText>HDR Demo 2022-09-22T14:09:18</LabelText>
+  </ContentVersion>
+  <RatingList/>
+  <ReelList>
+    <Reel>
+      <Id>urn:uuid:cf87ebc5-65b8-4aec-bb5e-f373506bd61d</Id>
+      <AnnotationText>Reel-1</AnnotationText>
+      <AssetList>
+        <MainPicture>
+          <Id>urn:uuid:4ff5d1c1-4cbf-4a51-8ad9-d5abab6bdda0</Id>
+          <AnnotationText>VIDEO_4ff5d1c1-4cbf-4a51-8ad9-d5abab6bdda0.mxf</AnnotationText>
+          <EditRate>24 1</EditRate>
+          <IntrinsicDuration>171</IntrinsicDuration>
+          <EntryPoint>0</EntryPoint>
+          <Duration>171</Duration>
+          <Hash>sxFfauCEwKwIaumkEbUxEXB8N3o=</Hash>
+          <FrameRate>24 1</FrameRate>
+          <ScreenAspectRatio>2048 1080</ScreenAspectRatio>
+        </MainPicture>
+        <MainSound>
+          <Id>urn:uuid:2a8dbb94-28dc-465b-94fe-9187bd75868e</Id>
+          <AnnotationText>AUDIO_2a8dbb94-28dc-465b-94fe-9187bd75868e.mxf</AnnotationText>
+          <EditRate>24 1</EditRate>
+          <IntrinsicDuration>171</IntrinsicDuration>
+          <EntryPoint>0</EntryPoint>
+          <Duration>171</Duration>
+          <Hash>BPKSmuUrJFMuTNbRhZxjmJDkcOA=</Hash>
+        </MainSound>
+        <meta:CompositionMetadataAsset xmlns:meta="http://www.smpte-ra.org/schemas/429-16/2014/CPL-Metadata">
+          <Id>urn:uuid:446c6e87-2167-443c-9943-f2e9a88338ff</Id>
+          <EditRate>24 1</EditRate>
+          <IntrinsicDuration>171</IntrinsicDuration>
+          <meta:FullContentTitleText>HDR Demo</meta:FullContentTitleText>
+          <meta:MainSoundConfiguration>Wild Track Format</meta:MainSoundConfiguration>
+          <meta:MainSoundSampleRate>48000 1</meta:MainSoundSampleRate>
+          <meta:MainPictureStoredArea>
+            <meta:Width>2048</meta:Width>
+            <meta:Height>1080</meta:Height>
+          </meta:MainPictureStoredArea>
+          <meta:MainPictureActiveArea>
+            <meta:Width>2048</meta:Width>
+            <meta:Height>1080</meta:Height>
+          </meta:MainPictureActiveArea>
+          <meta:ExtensionMetadataList>
+            <meta:ExtensionMetadata scope="https://www.dcimovies.com/schemas/2018/HDR-Metadata">
+              <meta:Name>Image Encoding Parameters</meta:Name>
+              <meta:PropertyList>
+                <meta:Property>
+                  <meta:Name>EOTF</meta:Name>
+                  <meta:Value>ST 2084</meta:Value>
+                </meta:Property>
+              </meta:PropertyList>
+            </meta:ExtensionMetadata>
+          </meta:ExtensionMetadataList>
+        </meta:CompositionMetadataAsset>
+      </AssetList>
+    </Reel>
+  </ReelList>
+</CompositionPlaylist>
