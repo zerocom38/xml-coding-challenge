@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <xs:schema targetNamespace="http://www.smpte-ra.org/schemas/430-4/2008/LogRecord/" version="1.0"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+        xmlns:dcml="http://www.smpte-ra.org/schemas/433/2008/dcmlTypes/"
+        xmlns:lr="http://www.smpte-ra.org/schemas/430-4/2008/LogRecord/"
+        elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd"/>
+<xs:import namespace="http://www.smpte-ra.org/schemas/433/2008/dcmlTypes/" schemaLocation="../datatypes/dcmlTypes.xsd"/>
+
+<!-- Record Text Extension Type -->
+<xs:complexType name="recordTextExtensionType">
+   <xs:sequence>
+      <xs:element name="recordTextID" type="dcml:UUIDType" minOccurs="1"/>
+      <xs:element name="recordDescriptionText" type="dcml:UserTextType" minOccurs="1" maxOccurs="unbounded"/>
+   </xs:sequence>
+</xs:complexType>
+
+<!-- Event Class Type (scoped token) -->
+<xs:complexType name="eventClassType">
+   <xs:simpleContent>
+      <xs:extension base="xs:token">
+         <xs:attribute name="scope" type="xs:anyURI" use="optional" default="http://www.smpte-ra.org/430.4/2006/LogMessage/#EventClassTokens"/>
+      </xs:extension>
+   </xs:simpleContent>
+</xs:complexType>
+
+
+<!-- Event Type Type (scoped token) -->
+<xs:complexType name="eventTypeType">
+   <xs:simpleContent>
+      <xs:extension base="xs:token">
+         <xs:attribute name="scope" type="xs:anyURI" use="required"/>
+      </xs:extension>
+   </xs:simpleContent>
+</xs:complexType>
+
+<!-- ReferenceIDType -->
+<xs:complexType name="ReferenceIDType">
+	<xs:sequence>
+		<xs:element name="IDName" type="dcml:scopedTokenType"/>
+		<xs:element name="IDValue" type="dcml:UUIDType"/>
+	</xs:sequence>
+</xs:complexType>
+
+<!-- ReferencedIDListType -->
+<xs:complexType name="ReferencedIDListType">
+	<xs:sequence>
+		<xs:element name="ReferencedID" type="lr:ReferenceIDType" minOccurs="1" maxOccurs="unbounded"/>
+	</xs:sequence>
+</xs:complexType>
+
+<!-- Log Record Header Type -->
+<xs:complexType name="logRecordHeaderType">
+   <xs:sequence>
+      <xs:element name="EventID" type="dcml:UUIDType"/>
+      <xs:element name="TimeStamp" type="xs:dateTime"/>
+      <xs:element name="EventSequence" type="xs:long" minOccurs="0"/>
+      <xs:element name="DeviceSourceID" type="dcml:deviceIdentifierListType"/>
+      <xs:element name="EventClass" type="xs:anyURI"/>
+      <xs:element name="EventType" type="lr:eventTypeType"/>
+      <xs:element name="contentId" type="dcml:UUIDType" minOccurs="0"/>
+      <xs:element name="previousHeaderHash" type="ds:DigestValueType" minOccurs="0"/>
+      <xs:element name="recordBodyHash" type="ds:DigestValueType" minOccurs="0"/>
+   </xs:sequence>
+</xs:complexType>
+
+<!-- Log Record Body Type -->
+<xs:complexType name="logRecordBodyType">
+   <xs:sequence>
+      <xs:element name="EventID" type="dcml:UUIDType"/>
+      <xs:element name="EventSubType" type="lr:eventTypeType" minOccurs="0"/>
+      <xs:element name="Parameters" type="dcml:parameterListType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Exceptions" type="dcml:parameterListType" minOccurs="0" maxOccurs="1"/>
+	  <xs:element name="ReferencedIDs" type="lr:ReferencedIDListType" minOccurs="0"/>
+      <xs:element name="RecordExtensionID" type="dcml:UUIDType" minOccurs="0"/>
+      <xs:element name="RecordTextExtension" type="lr:recordTextExtensionType" minOccurs="0"/>
+      <xs:element name="DeviceDescription" type="dcml:deviceDescriptionType" minOccurs="0"/>
+   </xs:sequence>
+</xs:complexType>
+
+<!-- Header Placement Token -->
+<xs:simpleType name="placementToken">
+   <xs:restriction base="xs:token">
+      <xs:enumeration value="start"/>
+      <xs:enumeration value="stop"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<!-- Signed Record Authentication Data Type -->
+<xs:complexType name="signedRecordAuthDataType">
+   <xs:sequence>
+      <xs:element name="RecordHeaderHash" type="ds:DigestValueType"/>
+      <xs:element name="SignerCertInfo" type="ds:X509IssuerSerialType"/>
+   </xs:sequence>
+   <xs:attribute name="Id" type="xs:anyURI" use="required"/>
+</xs:complexType>
+
+<!-- Log Record Signature Type -->
+<xs:complexType name="logRecordSignatureType">
+   <xs:sequence>
+      <xs:element name="HeaderPlacement" type="lr:placementToken"/>
+      <xs:element name="SequenceLength" type="xs:integer"/>
+      <xs:element name="RecordAuthData" type="lr:signedRecordAuthDataType" minOccurs="0"/>
+      <xs:element ref="ds:Signature" minOccurs="0" />
+   </xs:sequence>
+</xs:complexType>
+
+<!-- Log Record Type -->
+<xs:complexType name="logRecordType">
+    <xs:sequence>
+        <xs:element name="LogRecordHeader" type="lr:logRecordHeaderType" minOccurs="1"/>
+        <xs:element name="LogRecordBody" type="lr:logRecordBodyType" minOccurs="0"/>
+        <xs:element name="LogRecordSignature" type="lr:logRecordSignatureType" minOccurs="0"/>
+    </xs:sequence>
+</xs:complexType>
+
+<!-- Log Report Type -->
+<xs:complexType name="logReportType">
+   <xs:sequence>
+      <xs:element name="reportDate" type="xs:dateTime" minOccurs="0"/>
+	  <xs:element name="reportingDevice" type="dcml:deviceDescriptionType" minOccurs="0"/>
+      <xs:sequence>
+         <xs:element name="LogRecordElement" type="lr:logRecordType" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:sequence>
+</xs:complexType>
+
+<!-- Test Elements for validation - remove before publication -->
+<xs:element name="LogRecord" type="lr:logRecordType"/>
+<xs:element name="LogReport" type="lr:logReportType"/>
+
+</xs:schema> 
